@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.arje.botanicapp.R
-import com.arje.botanicapp.data.Plant
-import com.arje.botanicapp.data.PlantViewModel
+import com.arje.botanicapp.data.model.Plant
+import com.arje.botanicapp.data.viewmodel.PlantViewModel
 import kotlinx.android.synthetic.main.fragment_update.*
 import kotlinx.android.synthetic.main.fragment_update.view.*
 
@@ -32,9 +32,12 @@ class UpdateFragment : Fragment() {
 
         view.et_plantName.setText(args.currentPlant.name)
 
-
         view.btn_update.setOnClickListener {
             updatePlant()
+        }
+
+        view.btn_delete.setOnClickListener {
+            deletePlant()
         }
 
         return view
@@ -42,15 +45,20 @@ class UpdateFragment : Fragment() {
 
     private fun updatePlant() {
         val plantName = et_plantName.text.toString()
-
         if (!validate(plantName)) {
             Toast.makeText(requireContext(), "Plant name can't be blank!", Toast.LENGTH_SHORT).show()
             return
         }
-
         val plant = Plant(args.currentPlant.id, plantName)
         mPlantViewModel.updatePlant(plant)
         Toast.makeText(requireContext(), "Successfully updated plant!", Toast.LENGTH_LONG).show()
+        findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+    }
+
+    private fun deletePlant() {
+        val plantId = args.currentPlant.id
+        mPlantViewModel.deletePlant(plantId)
+        Toast.makeText(requireContext(), "Plant deleted!", Toast.LENGTH_LONG).show()
         findNavController().navigate(R.id.action_updateFragment_to_listFragment)
     }
 

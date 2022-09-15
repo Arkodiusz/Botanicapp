@@ -9,8 +9,8 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.arje.botanicapp.R
-import com.arje.botanicapp.data.Plant
-import com.arje.botanicapp.data.PlantViewModel
+import com.arje.botanicapp.data.model.Plant
+import com.arje.botanicapp.data.viewmodel.PlantViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*
 

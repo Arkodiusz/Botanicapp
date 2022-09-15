@@ -1,4 +1,4 @@
-package com.arje.botanicapp.data
+package com.arje.botanicapp.data.model
 
 import android.os.Parcelable
 import androidx.room.Entity

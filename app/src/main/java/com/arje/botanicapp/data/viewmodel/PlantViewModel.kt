@@ -1,9 +1,12 @@
-package com.arje.botanicapp.data
+package com.arje.botanicapp.data.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.arje.botanicapp.data.PlantDatabase
+import com.arje.botanicapp.data.model.Plant
+import com.arje.botanicapp.data.repository.PlantRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -27,6 +30,12 @@ class PlantViewModel(application: Application): AndroidViewModel(application) {
     fun updatePlant(plant: Plant){
         viewModelScope.launch(Dispatchers.IO) {
             repository.updatePlant(plant)
+        }
+    }
+
+    fun deletePlant(plantId: Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deletePlant(plantId)
         }
     }
 
