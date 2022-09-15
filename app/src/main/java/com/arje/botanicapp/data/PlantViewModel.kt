@@ -24,4 +24,10 @@ class PlantViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    fun updatePlant(plant: Plant){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updatePlant(plant)
+        }
+    }
+
 }

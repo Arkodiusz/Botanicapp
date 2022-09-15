@@ -4,4 +4,5 @@
     <string name="et_plantName">Plant Name</string>
     <string name="btn_add">ADD</string>
     <string name="txt_plantName">Plant</string>
+    <string name="btn_update">UPDATE</string>
 </resources>

@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_list.view.*
 
 class ListFragment : Fragment() {
 
-    private lateinit var myPlantViewModel: PlantViewModel
+    private lateinit var mPlantViewModel: PlantViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,8 +27,8 @@ class ListFragment : Fragment() {
         recyclerview.adapter = adapter
         recyclerview.layoutManager = LinearLayoutManager(requireContext())
 
-        myPlantViewModel = ViewModelProvider(this)[PlantViewModel::class.java]
-        myPlantViewModel.readAllData.observe(viewLifecycleOwner) { plant ->
+        mPlantViewModel = ViewModelProvider(this)[PlantViewModel::class.java]
+        mPlantViewModel.readAllData.observe(viewLifecycleOwner) { plant ->
             adapter.setData(plant)
         }
 
