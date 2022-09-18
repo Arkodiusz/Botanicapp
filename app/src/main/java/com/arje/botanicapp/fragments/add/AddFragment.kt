@@ -35,7 +35,7 @@ class AddFragment : Fragment() {
 
     private lateinit var mPlantViewModel: PlantViewModel
 
-    private lateinit var filePhoto: File
+    private var pathToPhoto = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,35 +66,27 @@ class AddFragment : Fragment() {
     return view
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-
             val capturedImage = data!!.extras!!.get("data") as Bitmap
-            filePhoto = getPhotoFile(requireActivity())
-
-            try {
-                val fOut = FileOutputStream(filePhoto)
-                capturedImage.compress(Bitmap.CompressFormat.PNG, 85, fOut)
-                fOut.flush()
-                fOut.close()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-
-            imageView_add.setImageBitmap(BitmapFactory.decodeFile(filePhoto.absolutePath))
+            pathToPhoto = saveImageToFile(requireActivity(), capturedImage)
+            imageView_add.setImageBitmap(BitmapFactory.decodeFile(pathToPhoto))
         }
     }
 
     private fun insertNewPlant() {
+        val id = 0
         val plantName = et_plantName_add.text.toString()
-        val path = filePhoto.path
+        val path = pathToPhoto
 
         if (!validate(plantName)) {
             Toast.makeText(requireContext(), "Plant name can't be blank!", Toast.LENGTH_SHORT).show()
             return
         }
-        val plant = Plant(0, plantName, path)
+
+        val plant = Plant(id, plantName, path)
         mPlantViewModel.addPlant(plant)
         Toast.makeText(requireContext(), "Successfully added plant!", Toast.LENGTH_LONG).show()
         findNavController().navigate(R.id.action_addFragment_to_listFragment)
@@ -106,7 +98,20 @@ class AddFragment : Fragment() {
             return plantName.isNotBlank()
         }
 
-        fun getPhotoFile(activity: FragmentActivity): File {
+        fun saveImageToFile(activity: FragmentActivity, capturedImage: Bitmap) : String {
+            val file = getPhotoFile(activity)
+            try {
+                val fOut = FileOutputStream(file)
+                capturedImage.compress(Bitmap.CompressFormat.PNG, 85, fOut)
+                fOut.flush()
+                fOut.close()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            return file.absolutePath
+        }
+
+        private fun getPhotoFile(activity: FragmentActivity): File {
             val timeStamp: String = DateTimeFormatter
                 .ofPattern("yyyyMMddHHmmssSSSSSS")
                 .withZone(ZoneOffset.UTC)
