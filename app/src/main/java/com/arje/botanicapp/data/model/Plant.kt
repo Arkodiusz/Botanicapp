@@ -10,5 +10,6 @@ import kotlinx.android.parcel.Parcelize
 data class Plant (
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val name: String
+    val name: String,
+    val image: String
 ): Parcelable

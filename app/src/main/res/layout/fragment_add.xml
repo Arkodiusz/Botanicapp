@@ -8,7 +8,7 @@
     android:padding="24dp">
 
     <EditText
-        android:id="@+id/et_plantName"
+        android:id="@+id/et_plantName_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_camera"
+        android:id="@+id/btn_camera_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -31,7 +31,7 @@
         android:src="@drawable/ic_camera"
         android:tint="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_plantName"
+        app:layout_constraintTop_toBottomOf="@+id/et_plantName_add"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,10 +40,10 @@
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_plantName">
+        app:layout_constraintTop_toBottomOf="@+id/et_plantName_add">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imageView_add"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@mipmap/ic_launcher"
