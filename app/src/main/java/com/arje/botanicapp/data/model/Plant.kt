@@ -11,5 +11,6 @@ data class Plant (
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val name: String,
-    val image: String
+    val imagePath: String,
+    val description: String
 ): Parcelable

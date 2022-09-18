@@ -5,4 +5,5 @@
     <string name="btn_add">ADD</string>
     <string name="txt_plantName">Plant</string>
     <string name="btn_update">UPDATE</string>
+    <string name="et_description_add">Description</string>
 </resources>

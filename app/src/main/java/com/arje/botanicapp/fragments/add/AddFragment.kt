@@ -79,14 +79,15 @@ class AddFragment : Fragment() {
     private fun insertNewPlant() {
         val id = 0
         val plantName = et_plantName_add.text.toString()
-        val path = pathToPhoto
+        val imagePath = pathToPhoto
+        val description = et_description_add.text.toString()
 
         if (!validate(plantName)) {
             Toast.makeText(requireContext(), "Plant name can't be blank!", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val plant = Plant(id, plantName, path)
+        val plant = Plant(id, plantName, imagePath, description)
         mPlantViewModel.addPlant(plant)
         Toast.makeText(requireContext(), "Successfully added plant!", Toast.LENGTH_LONG).show()
         findNavController().navigate(R.id.action_addFragment_to_listFragment)

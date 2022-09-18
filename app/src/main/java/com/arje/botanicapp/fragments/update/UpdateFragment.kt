@@ -39,14 +39,13 @@ class UpdateFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_update, container, false)
-
         mPlantViewModel = ViewModelProvider(this)[PlantViewModel::class.java]
 
+        pathToPhoto = args.currentPlant.imagePath
+
         view.et_plantName_update.setText(args.currentPlant.name)
-
-        pathToPhoto = args.currentPlant.image
-
         view.imageView_update.setImageBitmap(BitmapFactory.decodeFile(pathToPhoto))
+        view.et_description_update.setText(args.currentPlant.description)
 
         view.btn_camera_update.setOnClickListener {
             when {
@@ -91,14 +90,15 @@ class UpdateFragment : Fragment() {
     private fun updatePlant() {
         val id = args.currentPlant.id
         val plantName = et_plantName_update.text.toString()
-        val path = pathToPhoto
+        val imagePath = pathToPhoto
+        val description = et_description_update.text.toString()
 
         if (!AddFragment.validate(plantName)) {
             Toast.makeText(requireContext(), "Plant name can't be blank!", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val plant = Plant(id, plantName, path)
+        val plant = Plant(id, plantName, imagePath, description)
         mPlantViewModel.updatePlant(plant)
         Toast.makeText(requireContext(), "Successfully updated plant!", Toast.LENGTH_LONG).show()
         findNavController().navigate(R.id.action_updateFragment_to_listFragment)
