@@ -16,8 +16,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.arje.botanicapp.MainActivity
+import com.arje.botanicapp.MainActivity.Companion.selectedPlant
 import com.arje.botanicapp.R
 import com.arje.botanicapp.data.model.Plant
 import com.arje.botanicapp.data.viewmodel.PlantViewModel
@@ -32,8 +32,6 @@ class UpdateFragment : Fragment() {
 
     private var pathToPhoto = ""
 
-    private val args by navArgs<UpdateFragmentArgs>()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,11 +39,11 @@ class UpdateFragment : Fragment() {
         val view =  inflater.inflate(R.layout.fragment_update, container, false)
         mPlantViewModel = ViewModelProvider(this)[PlantViewModel::class.java]
 
-        pathToPhoto = args.currentPlant.imagePath
+        pathToPhoto = selectedPlant.imagePath
 
-        view.et_plantName_update.setText(args.currentPlant.name)
+        view.et_plantName_update.setText(selectedPlant.name)
         view.imageView_update.setImageBitmap(BitmapFactory.decodeFile(pathToPhoto))
-        view.et_description_update.setText(args.currentPlant.description)
+        view.et_description_update.setText(selectedPlant.description)
 
         view.btn_camera_update.setOnClickListener {
             when {
@@ -88,7 +86,7 @@ class UpdateFragment : Fragment() {
     }
 
     private fun updatePlant() {
-        val id = args.currentPlant.id
+        val id = selectedPlant.id
         val plantName = et_plantName_update.text.toString()
         val imagePath = pathToPhoto
         val description = et_description_update.text.toString()
@@ -98,14 +96,15 @@ class UpdateFragment : Fragment() {
             return
         }
 
-        val plant = Plant(id, plantName, imagePath, description)
-        mPlantViewModel.updatePlant(plant)
+        val updatedPlant = Plant(id, plantName, imagePath, description)
+        mPlantViewModel.updatePlant(updatedPlant)
         Toast.makeText(requireContext(), "Successfully updated plant!", Toast.LENGTH_LONG).show()
-        findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+        selectedPlant = updatedPlant
+        findNavController().navigate(R.id.action_updateFragment_to_detailsFragment)
     }
 
     private fun deletePlant() {
-        val plantId = args.currentPlant.id
+        val plantId = selectedPlant.id
         mPlantViewModel.deletePlant(plantId)
         Toast.makeText(requireContext(), "Plant deleted!", Toast.LENGTH_LONG).show()
         findNavController().navigate(R.id.action_updateFragment_to_listFragment)

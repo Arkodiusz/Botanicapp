@@ -1,10 +1,12 @@
 package com.arje.botanicapp.fragments.list
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.arje.botanicapp.MainActivity.Companion.selectedPlant
 import com.arje.botanicapp.R
 import com.arje.botanicapp.data.model.Plant
 import kotlinx.android.synthetic.main.custom_row.view.*
@@ -24,10 +26,11 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = plantList[position]
         holder.itemView.txt_plantName.text = currentItem.name
+        holder.itemView.imageView_list.setImageBitmap(BitmapFactory.decodeFile(currentItem.imagePath))
 
         holder.itemView.rowLayout.setOnClickListener {
-            val action = ListFragmentDirections.actionListFragmentToUpdateFragment(currentItem)
-            holder.itemView.findNavController().navigate(action)
+            selectedPlant = currentItem
+            holder.itemView.findNavController().navigate(R.id.action_listFragment_to_detailsFragment)
         }
     }
 
@@ -37,7 +40,6 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
     fun setData(plants: List<Plant>) {
         this.plantList = plants
-//        this.plantList = plants.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name })
         notifyDataSetChanged()
     }
 

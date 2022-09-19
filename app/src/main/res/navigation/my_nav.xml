@@ -14,8 +14,8 @@
             android:id="@+id/action_listFragment_to_addFragment"
             app:destination="@id/addFragment" />
         <action
-            android:id="@+id/action_listFragment_to_updateFragment"
-            app:destination="@id/updateFragment" />
+            android:id="@+id/action_listFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"
@@ -32,7 +32,21 @@
         android:label="Update"
         tools:layout="@layout/fragment_update" >
         <action
+            android:id="@+id/action_updateFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <action
             android:id="@+id/action_updateFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.arje.botanicapp.fragments.details.DetailsFragment"
+        android:label="Details" >
+        <action
+            android:id="@+id/action_detailsFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_listFragment"
             app:destination="@id/listFragment" />
         <argument
             android:name="currentPlant"
